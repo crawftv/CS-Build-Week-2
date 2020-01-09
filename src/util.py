@@ -116,6 +116,30 @@ def pickup_treasure(treasure, API_KEY):
     return response
 
 
+def sell_treasure(ii,API_KEY):
+    headers = {
+        "Authorization": f"Token {API_KEY}",
+        "Content-Type": "application/json",
+    }
+    data = {"name": f"{ii}", "confirm": "yes"}
+    response = requests.post(
+        "https://lambda-treasure-hunt.herokuapp.com/api/adv/sell/",
+        headers=headers,
+        data=json.dumps(data),
+    )
+    return response
+
+def check_inventory(API_KEY):
+    headers = {
+        "Authorization": f"Token {API_KEY}",
+        "Content-Type": "application/json",
+    }
+    response = requests.post(
+        "https://lambda-treasure-hunt.herokuapp.com/api/adv/status/", headers=headers
+    )
+    return response.json()
+
+
 def pickle_graph(player_graph):
     filename = "player_graph.pkl"
     outfile = open(filename, "wb")
